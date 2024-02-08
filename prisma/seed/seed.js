@@ -8,6 +8,9 @@ async function main() {
     const item2 = await prisma.item.create({
         data: { name: 'harris3', rating: 5 },
     });
+    const item3 = await prisma.item.create({
+        data: { name: 'random item', rating: 5 },
+    });
     console.log({ item1, item2})
 }
 main()
