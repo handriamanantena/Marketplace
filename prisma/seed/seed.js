@@ -3,15 +3,16 @@ const prisma = new PrismaClient();
 
 async function main() {
     const item1 = await prisma.item.create({
-        data: { name: 'harris', rating: 5 },
+        data: { name: 'harris', avg_rating: 0, total_ratings: 0},
     });
     const item2 = await prisma.item.create({
-        data: { name: 'harris3', rating: 5 },
+        data: { name: 'harris3', avg_rating: 0, total_ratings: 0 },
     });
     const item3 = await prisma.item.create({
-        data: { name: 'random item', rating: 5 },
+        data: { name: 'random item', avg_rating: 0, total_ratings: 0 },
     });
-    console.log({ item1, item2})
+
+    console.log({ item1, item2, item3})
 }
 main()
     .then(async () => {
