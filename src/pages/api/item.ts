@@ -13,10 +13,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 
 async function getHandler(req: NextApiRequest, res: NextApiResponse<Item[]>) {
-    let pageSize = req.query.pageSize;
-    let pageIndex = req.query.pageIndex;
+    let pageSize = parseInt(req.query.pageSize);
+    let pageIndex = parseInt(req.query.pageIndex);
     let name = req.query.name;
-    let rating = +(req.query.rating);
+    let rating = parseInt(req.query.rating);
+    console.log(req.query);
 
     let where = {};
     if(name && rating) {
@@ -39,16 +40,16 @@ async function getHandler(req: NextApiRequest, res: NextApiResponse<Item[]>) {
             }
         }
     }
-    else if(rating != undefined) {
+    else if(!isNaN(rating)) {
         where = {
             rating: { equals: rating}
         }
     }
     let query = {};
-    if(pageSize == undefined) {
+    if(isNaN(pageSize)) {
         pageSize = 15;
     }
-    if (pageIndex == undefined) {
+    if (isNaN(pageIndex)) {
         query = {
             take: pageSize,
             where: where,
