@@ -2,23 +2,12 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient();
 
 async function main() {
-    const item1 = await prisma.item.create({
-        data: { name: 'harris', avg_rating: 0, total_ratings: 0 , url: "url"},
-    });
-    const item2 = await prisma.item.create({
-        data: { name: 'harris3', avg_rating: 0, total_ratings: 0, url: "url"},
-    });
-    const item3 = await prisma.item.create({
-        data: { name: 'random item', avg_rating: 0, total_ratings: 0, url: "url" },
-    });
-
     for(let i = 0; i < 100; i++) {
         const item = await prisma.item.create({
-            data: { name: `random item ${i}`, avg_rating: 0, total_ratings: 0, url: `url${i}` },
+            data: { name: `random item ${i}`, avg_rating: 0, total_ratings: 0, url: `url${i}`, price: 12 },
         });
     }
-
-    console.log({ item1, item2, item3})
+    console.log("seeding complete");
 }
 main()
     .then(async () => {

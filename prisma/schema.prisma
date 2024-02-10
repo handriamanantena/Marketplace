@@ -19,7 +19,7 @@ model Item {
     name           String
     url            String
     avg_rating     Float
-    total_ratings  Int
+    total_ratings  Int      @default(0)
     price          Float
     @@index([name])
     reviews Review[]

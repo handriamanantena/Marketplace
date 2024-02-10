@@ -18,9 +18,6 @@ export default async function httpHandler(req: NextApiRequest, res: NextApiRespo
             case "POST":
                 await handlers.POST(req, res);
                 break;
-            case "PUT":
-                await handlers.PUT(req, res);
-                break;
             default:
                 throwMethodNotAllowed(res, method, handlers);
         }
