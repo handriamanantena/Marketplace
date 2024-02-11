@@ -1,9 +1,11 @@
-import CartMenu from "~/components/cart/Cart";
+import CartMenu from "@components/cart/Cart";
 import {useState} from "react";
 
 export default function NavBar({}) {
 
     let [showCart, setShowCart] = useState<boolean>(false);
+
+
 
 
     return <nav className="bg-gray-800 p-4">
@@ -18,7 +20,7 @@ export default function NavBar({}) {
                 </ul>
             </div>
             <div className="flex-row-reverse" >
-                <button onClick={setShowCart}>Cart</button>
+                <button onClick={() => setShowCart(true)}>Cart</button>
                 {showCart ? <CartMenu items={[]} setShowCart={setShowCart}/> : <></>}
             </div>
         </div>

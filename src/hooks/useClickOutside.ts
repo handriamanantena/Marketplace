@@ -1,12 +1,13 @@
-import {Dispatch, SetStateAction, useEffect} from "react";
+import {Dispatch, RefObject, SetStateAction, useEffect} from "react";
+import React from "react";
 
-const useClickOutside = (setShowClickable: Dispatch<SetStateAction<boolean>>, ref) => {
+const useClickOutside = (setShowClickable: Dispatch<SetStateAction<boolean>>, ref : React.RefObject<HTMLElement>) => {
 
 
     useEffect(() => {
-        function handleAnyDropDownClick(event) {
+        function handleAnyDropDownClick(event : any) {
             console.log("inside");
-            if (!ref.current.contains(event.target)) {
+            if (ref.current && !ref.current.contains(event.target)) {
                 setShowClickable(false);
             }
         }

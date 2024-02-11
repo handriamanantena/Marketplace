@@ -1,6 +1,5 @@
-import {Star} from "~/components/rating/EditableStar";
 import * as React from "react";
-import {FiveStars} from "~/components/rating/FiveStars";
+import {FiveStars} from "@components/rating/FiveStars";
 
 export const Rating =  ({rating, totalRatings} : {rating: number, totalRatings: number}) => {
 

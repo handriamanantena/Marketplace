@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import {Item} from "~/model/Item";
-import {db} from "~/server/db";
-import httpHandler from "~/util/httpHandler";
+import { Item } from "@customTypes/Item";
+import {db} from "@server/db";
+import httpHandler from "@server/util/httpHandler";
+import {NextRequest, NextResponse} from "next/server";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Item>) {
@@ -11,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     await httpHandler(req, res, handlers)
 }
 
-async function getHandler(req: NextApiRequest, res: NextApiResponse<{ rating: number } | {}>) {
+async function getHandler(req: any, res: NextApiResponse<{ rating: number } | {}>) {
     const { item } = req.query as { item: number };
     const product = await db.item.findUnique({
         where: {

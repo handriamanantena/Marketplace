@@ -1,26 +1,29 @@
 import {Fragment, useState} from "react";
+import type {Dispatch, SetStateAction} from "react";
 import React from "react";
-import {Star} from "~/components/rating/EditableStar";
-import {EditableFiveStars} from "~/components/rating/EditableFiveStars";
 import { useRouter } from 'next/router'
+import {EditableFiveStars} from "@components/rating/EditableFiveStars";
 
 
 
-export const AddReview = ({showPopup, setShowPop, itemId} : {showPopup: boolean, setShowPop: (value: boolean) => {}, itemId: number}) => {
+export const AddReview = ({showPopup, setShowPop, itemId} : {showPopup: boolean, setShowPop: Dispatch<SetStateAction<boolean>>, itemId: number}) => {
 
     let [rating, setRating] = useState<0|1|2|3|4|5>(0);
     const router = useRouter();
 
-    let hidePopUp = (e) => {
-        e.preventDefault();
+    let hidePopUp = () => {
         setShowPop(false);
     };
 
-    let onSubmit = async (e): void => {
+    let onSubmit = async (e: React.SyntheticEvent): Promise<void> => {
         e.preventDefault();
+        const target = e.target as typeof e.target & {
+            comment: { value: string };
+            email: { value: string };
+        };
         let body = JSON.stringify({
-            comment: e.target.comment.value,
-            email: e.target.email.value,
+            comment: target.comment.value,
+            email: target.email.value,
             rating: rating,
         });
         let response = await fetch(`http://localhost:3000/api/item/${itemId}/review`, {

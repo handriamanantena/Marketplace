@@ -18,8 +18,8 @@ model Item {
     id             Int      @id @default(autoincrement())
     name           String
     url            String
-    avg_rating     Float
-    total_ratings  Int      @default(0)
+    avgRating     Float
+    totalRatings  Int      @default(0)
     price          Float
     @@index([name])
     reviews Review[]

@@ -1,5 +1,4 @@
-import {Star} from "~/components/rating/Star";
-import {useEffect} from "react";
+import {Star} from "@components/rating/Star";
 
 export const FiveStars = ({rating} : {rating : number}) => {
 

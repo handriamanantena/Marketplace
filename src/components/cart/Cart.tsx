@@ -1,18 +1,17 @@
-import {Item} from "~/model/Item";
-import {useRef} from "react";
-import useClickOutside from "~/hooks/useClickOutside";
-import {useAppDispatch} from "~/redux/store/store";
-import {addItem} from "~/redux/store/cartSlice";
+import {Item} from "@customTypes/Item";
+import {Dispatch, SetStateAction, useRef} from "react";
+import useClickOutside from "@hooks/useClickOutside";
+import {useAppDispatch} from "@lib/store/store";
+import {addItem} from "@lib/store/cartSlice";
+import React from "react";
 
-export default function CartMenu({items, setShowCart} : {items : Item[], setShowCart: (show: boolean) => {}}) {
+export default function CartMenu({items, setShowCart} : {items : Item[], setShowCart: Dispatch<SetStateAction<boolean>>}) {
 
-
-    let ref = useRef(null);
+    let ref: React.RefObject<HTMLDivElement> = useRef(null);
     useClickOutside(setShowCart, ref);
     const dispatch = useAppDispatch();
 
-    let addCart = (e) => {
-        console.log("clicked cart");
+    let addCart = () => {
         dispatch(addItem({ id: 1,
             url: "url",
             name: "name",

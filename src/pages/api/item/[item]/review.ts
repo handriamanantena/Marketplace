@@ -1,7 +1,7 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {Item, Review} from "src/model/Item";
-import httpHandler from "src/util/httpHandler";
-import {db} from "src/server/db";
+import {Item, Review} from "@customTypes/Item";
+import httpHandler from "@server/util/httpHandler";
+import {db} from "@server/db";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Review>) {
     let handlers = {
@@ -11,31 +11,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 }
 
 
-async function postHandler(req: NextApiRequest, res: NextApiResponse<Review | {}>) {
+async function postHandler(req: any, res: NextApiResponse<Item & {newReview: Review} | {message: string}>) {
     const { item } = req.query as { item: number };
     let data: Review = req.body as Review;
-    const newReview = await db.review.create({
+    const product : Item | null = await db.item.findUnique({
+        where: {
+            id: +(item)
+        }
+    });
+    if(product == null) {
+        res.status(404).json({message: "item not found"});
+        return;
+    }
+    const newReview : Review = await db.review.create({
         data: {
             email: data.email,
             itemId: +(item),
             rating: +(data.rating),
             comment: data.comment
         },
-    });
-    const product : Item = await db.item.findUnique({
-        where: {
-            id: +(item)
-        }
-    });
-    let ratingSum = product.total_ratings * product.avg_rating;
+    }) as Review;
+
+    let ratingSum = product.totalRatings * product.avgRating;
     ratingSum += data.rating;
-    product.total_ratings += 1;
-    let newAvgRating = ratingSum / product.total_ratings;
-    const updatedItem = await db.item.update({
+    product.totalRatings += 1;
+    let newAvgRating = ratingSum / product.totalRatings;
+    const updatedItem : any = await db.item.update({
         where: { id: +(item) },
         data: {
-            avg_rating: newAvgRating,
-            total_ratings: product.total_ratings
+            avgRating: newAvgRating,
+            totalRatings: product.totalRatings
         },
     });
     updatedItem.newReview = newReview;

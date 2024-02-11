@@ -1,4 +1,4 @@
-import {StarSVG} from "~/components/rating/StarSvG";
+import {StarSVG} from "@components/rating/StarSvG";
 
 export const Star = ({isStyled}: { isStyled: boolean }) => {
 

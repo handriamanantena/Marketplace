@@ -1,21 +1,28 @@
 import type { ReactElement } from 'react'
-import Layout from '../components/layout'
-import type { NextPageWithLayout } from './_app'
+import Layout from '@components/Layout'
+import type { NextPageWithLayout } from '@pages/_app'
 import useSWRInfinite from 'swr/infinite'
 import {SWRConfig} from "swr";
-import {Card} from "~/components/Card";
-import {StoreProvider} from "~/redux/provider/StoreProvider";
-import {store} from "~/redux/store/store";
+import {Card} from "@components/Card";
+import {StoreProvider} from "@lib/provider/StoreProvider";
+import {Item} from "@customTypes/Item";
+import {getItems} from "@server/prisma/item";
 
-const fetcher = (url) => fetch(url).then((res) =>  res.json() );
+const fetcher = (url: string) => fetch(url).then((res) =>  res.json() );
 
-const getKey = (pageIndex, previousPageData) => {
-    console.log("the index " + pageIndex + JSON.stringify(previousPageData));
-    if (previousPageData && previousPageData.length == 0) return null
+const getKey = (pageIndex: number, previousPageData : Item[]) => {
 
-    if (pageIndex === 0) return `/api/item?pageSize=30`
 
-    return `/api/item?pageIndex=${previousPageData[previousPageData.length - 1].id}&pageSize=30`
+    if (previousPageData && previousPageData.length == 0) {
+        return null;
+    }
+
+    if (pageIndex === 0) return `/api/item?pageSize=30`;
+
+    if(previousPageData == undefined) {
+        return null;
+    }
+    return `/api/item?pageIndex=${previousPageData[previousPageData!.length - 1]!.id}&pageSize=30`
 }
 
 function Page() {
@@ -24,21 +31,14 @@ function Page() {
     return (
         <div className="flex flex-wrap justify-center w-full" >
             {data.map((items, index) => {
-                return items.map(item => <Card item={{
-                    id: item.id,
-                    url: item.url,
-                    name: item.name,
-                    price: item.price,
-                    avgRating: item.avg_rating,
-                    totalRatings: item.total_ratings
-                }}/>)
+                return items.map((item : Item)=> <Card item={item}/>)
             })}
             <button onClick={() => setSize(size + 1)}>Load More</button>
         </div>
     )
 }
 
-const Market: NextPageWithLayout = ({ fallback }) => {
+const Market: NextPageWithLayout = ({ fallback } : { [key: string]: any; }) => {
     return <SWRConfig value={{ fallback }}>
        <Page/>
     </SWRConfig>
@@ -47,7 +47,7 @@ const Market: NextPageWithLayout = ({ fallback }) => {
 
 
 export async function getStaticProps() {
-    const items =  await fetcher("http://localhost:3000/api/item?pageSize=30");
+    let items = await getItems(undefined, undefined, 30, undefined);
     return {
         props: {
             fallback : {
@@ -59,7 +59,7 @@ export async function getStaticProps() {
 
 Market.getLayout = function getLayout(page: ReactElement) {
     return (
-        <StoreProvider store={store}>
+        <StoreProvider>
         <Layout>
             {page}
         </Layout>

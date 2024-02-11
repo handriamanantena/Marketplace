@@ -1,13 +1,13 @@
-import {Item} from "~/model/Item";
 import {createSlice} from "@reduxjs/toolkit";
-import {PayloadAction} from "@reduxjs/toolkit/dist/createAction";
+import {Item} from "@customTypes/Item";
 
 
 export type ItemCart = Item & {quantity: number}
 
 
+
 export interface CartState {
-    items: Item[];
+    items: ItemCart[];
 }
 
 const initialState: CartState = {
@@ -18,8 +18,8 @@ export const CartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        addItem: (state, action: PayloadAction<ItemCart>) => {
-            let existingItem : ItemCart = state.items.find(item => item.id == action.payload.id);
+        addItem: (state, action) => {
+            let existingItem : ItemCart | undefined = state.items.find(item => item.id == action.payload.id);
             if(existingItem) {
                 existingItem.quantity += action.payload.quantity;
             }

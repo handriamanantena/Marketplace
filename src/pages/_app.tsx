@@ -1,12 +1,10 @@
 import { type Session } from "next-auth";
 import { type AppType } from "next/app";
 
-import "~/styles/globals.css";
+import "@styles/globals.css";
 import type { NextPage } from "next";
 import type { ReactElement, ReactNode } from "react";
 import type { AppProps } from 'next/app'
-import {store} from "~/redux/store/store";
-import {StoreProvider} from "~/redux/provider/StoreProvider";
 
 
 
@@ -21,9 +19,7 @@ type AppPropsWithLayout = AppProps & {
 const MyApp: AppType<{ session: Session | null }> = ({Component, pageProps: { session, ...pageProps },}: AppPropsWithLayout) => {
     const getLayout = Component.getLayout ?? ((page) => page)
 
-    return getLayout(<StoreProvider store={store}>
-        <Component {...pageProps} />
-    </StoreProvider>
+    return getLayout(<Component {...pageProps} />
   );
 };
 

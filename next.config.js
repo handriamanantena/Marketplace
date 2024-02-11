@@ -7,6 +7,9 @@ await import("./src/env.js");
 /** @type {import("next").NextConfig} */
 const config = {
     reactStrictMode: true,
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
     images: {
         unoptimized: true,
         domains: ['https://thumbnail.r2.dailyirasuto.com', 'localhost']

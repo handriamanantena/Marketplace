@@ -1,7 +1,7 @@
-import {StarSVG} from "~/components/rating/StarSvG";
-import {useState} from "react";
+import {StarSVG} from "@components/rating/StarSvG";
+import {Dispatch, SetStateAction, useState} from "react";
 
-export const EditableFiveStars = ({setRating}) => {
+export const EditableFiveStars = ({setRating} : {setRating: Dispatch<SetStateAction<0 | 2 | 1 | 3 | 4 | 5>>}) => {
 
     let [firstStar, setFirstStar] = useState('text-gray-300');
     let [secondStar, setSecondStar] = useState('text-gray-300');
@@ -12,7 +12,7 @@ export const EditableFiveStars = ({setRating}) => {
 
 
 
-    let highLightStar = (selectedStar: number) => {
+    let highLightStar = (selectedStar: 0 | 2 | 1 | 3 | 4 | 5) => {
         let coloredIn = 'text-yellow-300';
         let blank = 'text-gray-300';
 
