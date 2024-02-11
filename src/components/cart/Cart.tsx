@@ -1,58 +1,22 @@
 import {Item} from "@customTypes/Item";
 import {Dispatch, SetStateAction, useRef} from "react";
 import useClickOutside from "@hooks/useClickOutside";
-import {useAppDispatch} from "@lib/store/store";
-import {addItem} from "@lib/store/cartSlice";
+import { useAppSelector} from "@lib/store/store";
+import {addItem, ItemCart} from "@lib/store/cartSlice";
 import React from "react";
+import CartItem from "@components/cart/CartItem";
 
-export default function CartMenu({items, setShowCart} : {items : Item[], setShowCart: Dispatch<SetStateAction<boolean>>}) {
+export default function CartMenu({setShowCart} : {setShowCart: Dispatch<SetStateAction<boolean>>}) {
 
     let ref: React.RefObject<HTMLDivElement> = useRef(null);
     useClickOutside(setShowCart, ref);
-    const dispatch = useAppDispatch();
+    let items : ItemCart[] | undefined = useAppSelector(state => state.cart.items);
 
-    let addCart = () => {
-        dispatch(addItem({ id: 1,
-            url: "url",
-            name: "name",
-            price: 1,
-            avgRating: 1,
-            totalRatings: 1,
-            quantity: 1
-        }));
-    };
 
-    return <div className="absolute overflow-y-scroll w-30 h-30 bg-white grow" ref={ref} onClick={addCart}>
-        <p>iteasdfasdfdm</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-        <p>item</p>
-
+    return <div className="absolute overflow-y-scroll min-w-96 min-h-10 bg-white grow" ref={ref}>
+        {items == undefined || items.length == 0 ? <p>Cart is empty</p> : items.map(item => {
+            return <CartItem cartItem={item}/>
+        })}
     </div>
 
 }

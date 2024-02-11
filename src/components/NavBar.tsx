@@ -1,5 +1,6 @@
 import CartMenu from "@components/cart/Cart";
 import {useState} from "react";
+import {CartSVG} from "@components/cart/CartSVG";
 
 export default function NavBar({}) {
 
@@ -20,8 +21,11 @@ export default function NavBar({}) {
                 </ul>
             </div>
             <div className="flex-row-reverse" >
-                <button onClick={() => setShowCart(true)}>Cart</button>
-                {showCart ? <CartMenu items={[]} setShowCart={setShowCart}/> : <></>}
+                <button className="text-white" onClick={() => setShowCart(true)}>
+                    <CartSVG/>
+                    Cart
+                </button>
+                {showCart ? <CartMenu setShowCart={setShowCart}/> : <></>}
             </div>
         </div>
     </nav>

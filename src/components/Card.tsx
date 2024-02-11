@@ -5,6 +5,7 @@ import { useState} from "react";
 import {Item} from "@customTypes/Item";
 import {addItem, ItemCart} from "@lib/store/cartSlice";
 import {useAppDispatch, useAppSelector} from "@lib/store/store";
+import CartCount from "@components/cart/CartCount";
 
 export const Card =  ({item} : {item: Item}) => {
 
@@ -18,11 +19,16 @@ export const Card =  ({item} : {item: Item}) => {
     };
     return <div>
         <AddReview showPopup={showPopup} setShowPop={ setShowPop } itemId={item.id}/>
-        <Image className="md:rounded-lg w-80 h-80 mx-5 my-5" key={item.id}
-               alt={item.name}
-               width={1000}
-               height={1000}
-               src="https://thumbnail.r2pictures.uk/monkey"/>
+        <div>
+            <CartCount cartItem={itemInCart}/>
+            <Image className="md:rounded-lg w-80 h-80 mx-5 my-5" key={item.id}
+                   alt={item.name}
+                   width={1000}
+                   height={1000}
+                   src="https://thumbnail.r2pictures.uk/monkey">
+            </Image>
+        </div>
+
         <div className="flex flex-col">
             <p>{item.name}</p>
             <p>{item.price}</p>
@@ -30,7 +36,6 @@ export const Card =  ({item} : {item: Item}) => {
             <Rating rating={item.avgRating} totalRatings={item.totalRatings}></Rating>
             <button onClick={() => setShowPop}>Add Review</button>
             <button onClick={addToCart}>Add to Cart</button>
-            {JSON.stringify(itemInCart)}
         </div>
     </div>
 
