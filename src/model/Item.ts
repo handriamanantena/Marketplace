@@ -3,6 +3,8 @@ export type Item = {
     url: string,
     avgRating: number
     totalRatings: number
+    price: number
+    name: string
 }
 
 export type Review = {

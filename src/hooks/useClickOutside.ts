@@ -1,4 +1,4 @@
-import {Dispatch, MutableRefObject, SetStateAction, useCallback, useEffect, useRef} from "react";
+import {Dispatch, SetStateAction, useEffect} from "react";
 
 const useClickOutside = (setShowClickable: Dispatch<SetStateAction<boolean>>, ref) => {
 

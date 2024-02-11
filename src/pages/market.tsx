@@ -4,6 +4,8 @@ import type { NextPageWithLayout } from './_app'
 import useSWRInfinite from 'swr/infinite'
 import {SWRConfig} from "swr";
 import {Card} from "~/components/Card";
+import {StoreProvider} from "~/redux/provider/StoreProvider";
+import {store} from "~/redux/store/store";
 
 const fetcher = (url) => fetch(url).then((res) =>  res.json() );
 
@@ -17,13 +19,19 @@ const getKey = (pageIndex, previousPageData) => {
 }
 
 function Page() {
-    const {data, error, isLoading, isValidating, mutate, size, setSize} = useSWRInfinite(getKey, fetcher);
+    const {data, size, setSize} = useSWRInfinite(getKey, fetcher);
     if (!data) return 'loading';
     return (
         <div className="flex flex-wrap justify-center w-full" >
             {data.map((items, index) => {
-                // `data` is an array of each page's API response.
-                return items.map(item => <Card item={item}/>)
+                return items.map(item => <Card item={{
+                    id: item.id,
+                    url: item.url,
+                    name: item.name,
+                    price: item.price,
+                    avgRating: item.avg_rating,
+                    totalRatings: item.total_ratings
+                }}/>)
             })}
             <button onClick={() => setSize(size + 1)}>Load More</button>
         </div>
@@ -51,9 +59,11 @@ export async function getStaticProps() {
 
 Market.getLayout = function getLayout(page: ReactElement) {
     return (
+        <StoreProvider store={store}>
         <Layout>
             {page}
         </Layout>
+        </StoreProvider>
     )
 };
 
