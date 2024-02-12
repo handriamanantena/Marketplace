@@ -1,12 +1,14 @@
 import Image from 'next/image'
 import {Rating} from "@components/rating/Rating";
-import {AddReview} from "@components/AddReview";
 import { useState} from "react";
 import type { Item } from "@customTypes/Item";
 import { addItem } from "@lib/store/cartSlice";
 import type { ItemCart } from "@lib/store/cartSlice";
 import {useAppDispatch, useAppSelector} from "@lib/store/store";
 import CartCount from "@components/cart/CartCount";
+import {DialogCloseButton} from "@components/AddReviewModal";
+import {Button} from "@components/ui/button";
+import {DialogTrigger} from "./ui/dialog";
 
 export const Card =  ({item} : {item: Item}) => {
 
@@ -19,7 +21,6 @@ export const Card =  ({item} : {item: Item}) => {
         dispatch(addItem(itemCart));
     };
     return <div className="bg-slate-100 border-2 pb-5 m-5">
-        <AddReview showPopup={showPopup} setShowPop={ setShowPop } itemId={item.id}/>
             <CartCount cartItem={itemInCart}/>
             <Image className="md:rounded-lg w-80 h-80 mx-5 my-5" key={item.id}
                    alt={item.name}
@@ -32,8 +33,10 @@ export const Card =  ({item} : {item: Item}) => {
             <p>{item.name}</p>
             <p>{item.price.toFixed(2)}$</p>
             <Rating rating={item.avgRating} totalRatings={item.totalRatings}></Rating>
-            <button onClick={() => setShowPop(true)}>Add Review</button>
-            <button onClick={addToCart}>Add to Cart</button>
+            <div className="flex space-x-1">
+                <DialogCloseButton itemId={item.id}/>
+                <Button variant="outline" onClick={addToCart}>Add to Cart</Button>
+            </div>
         </div>
     </div>
 

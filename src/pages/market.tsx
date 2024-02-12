@@ -32,7 +32,7 @@ function Page() {
     return (
         <div className="flex flex-col">
             <div className="flex flex-wrap justify-center w-full">
-                {data.map((items: []) => {
+                {data.map((items: Item[]) => {
                     return items.map((item: Item) => <Card item={item} key={item.id}/>)
                 })}
             </div>
