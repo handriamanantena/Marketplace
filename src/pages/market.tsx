@@ -32,7 +32,7 @@ function Page() {
   if (!data) return "loading";
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-20">
       <div className="flex flex-wrap justify-center w-full">
         {data.map((items: Item[]) => {
           return items.map((item: Item) => <Card item={item} key={item.id} />);
