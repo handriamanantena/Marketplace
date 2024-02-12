@@ -6,6 +6,14 @@ await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
 const config = {
+    async rewrites() {
+        return [
+            {
+                source: '/',
+                destination: '/market'
+            },
+        ];
+    },
     reactStrictMode: true,
     eslint: {
         ignoreDuringBuilds: true,

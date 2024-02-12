@@ -2,12 +2,18 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient();
 
 async function main() {
-    for(let i = 0; i < 100; i++) {
-        const item = await prisma.item.create({
-            data: { name: `random item ${i}`, avgRating: 0, totalRatings: 0, url: `url${i}`, price: 12 },
-        });
+    let item = await prisma.item.findFirst();
+    if(item) {
+        console.log("db already seeded");
     }
-    console.log("seeding complete");
+    else {
+        for(let i = 0; i < 100; i++) {
+            await prisma.item.create({
+                data: { name: `random item ${i}`, avgRating: 0, totalRatings: 0, url: `url${i}`, price: 12 },
+            });
+        }
+        console.log("seeding complete");
+    }
 }
 main()
     .then(async () => {

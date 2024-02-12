@@ -1,32 +1,39 @@
-# Create T3 App
+# Marketplace
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## About 
 
-## What's next? How do I make an app with this?
+Simulates a marketplace frontend. The checkout mechanism is handled using redux. The database stores items on an sqlLite db.  
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Start project locally  
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+`npm run dev`
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+The following will occur 
 
-## Learn More
+* prisma generates the schema, defined in `./prisma/schema.prisma`
+* The database is seeded. The seeding script is located in `./prisma/seed/seed.js`. It will generate 100 items
+* a next.js application will start in dev mode ``localhost:3000``
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## Enviornment Variables
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Prerequisites 
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+`node v18.16.0 or above (tested on v18.16.0)`
 
-## How do I deploy this?
+## Create a production build
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+In order to make use of next.js ssr features, you will need to create a production build. This will make use of `getStaticProps` and 
+generate 30 items in the marketplace at build time. If you have not run `npm run dev`, you will need to first build the database.
 
+* Database setup: `npm run db:push`
+* Database seeding: `npx prisma db seed`
+* Build Next.js application: `npm run build`
 
-## Seed database
-``npx prisma db seed``
+After the build, to start the server run 
+
+`npm run start` 
+
+## Stack
+
+* frontend `Next.js, react, react redux, tailwind`
+* backend: `Prisma: sqlLite`
