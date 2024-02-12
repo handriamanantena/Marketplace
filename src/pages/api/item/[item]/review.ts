@@ -1,10 +1,10 @@
-import {NextApiRequest, NextApiResponse} from "next";
-import {Item, Review} from "@customTypes/Item";
+import type {NextApiRequest, NextApiResponse} from "next";
+import type {Item, Review} from "@customTypes/Item";
 import httpHandler from "@server/util/httpHandler";
 import {db} from "@server/db";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Review>) {
-    let handlers = {
+    const handlers = {
         POST: postHandler
     };
     await httpHandler(req, res, handlers)

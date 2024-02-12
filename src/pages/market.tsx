@@ -5,9 +5,8 @@ import useSWRInfinite from 'swr/infinite'
 import {SWRConfig} from "swr";
 import {Card} from "@components/Card";
 import {StoreProvider} from "@lib/provider/StoreProvider";
-import {Item} from "@customTypes/Item";
+import type {Item} from "@customTypes/Item";
 import {getItems} from "@server/prisma/item";
-import {useEffect} from "react";
 
 const fetcher = (url: string) => fetch(url).then((res) =>  res.json() );
 
@@ -21,24 +20,23 @@ const getKey = (pageIndex: number, previousPageData : Item[]) : string | undefin
     if(previousPageData == undefined) {
         return null;
     }
-    return `/api/item?pageIndex=${previousPageData[previousPageData!.length - 1]!.id}&pageSize=30`
-};
+    return `/api/item?pageIndex=${previousPageData[previousPageData.length - 1].id}&pageSize=30`
+}
 
 function Page() {
 
-    const {data , size, setSize} : {data: [], size : number, setSize : any} = useSWRInfinite(getKey, fetcher);
+    const {data , size, setSize} = useSWRInfinite(getKey, fetcher);
 
     if (!data) return 'loading';
 
     return (
         <div className="flex flex-col">
             <div className="flex flex-wrap justify-center w-full">
-                {data.map((items, index) => {
-                    return items.map((item: Item) => <Card item={item}/>)
+                {data.map((items: []) => {
+                    return items.map((item: Item) => <Card item={item} key={item.id}/>)
                 })}
             </div>
-            {data && data[data.length - 1] && data[data.length - 1].length != 0 ?
-                <button className="grow h-20 bg-slate-200" onClick={() => setSize(size + 1)}>Load More ▼</button> : <></>}
+            { data[data?.length - 1]?.length != 0 ? <button type="button" className="grow h-20 bg-slate-200" onClick={() => setSize(size + 1)}>Load More ▼</button> : <></>}
         </div>
     )
 }
@@ -52,7 +50,7 @@ const Market: NextPageWithLayout = ({ fallback } : { [key: string]: any; }) => {
 
 
 export async function getStaticProps() {
-    let items = await getItems(undefined, undefined, 30, undefined);
+    const items = await getItems(undefined, undefined, 30, undefined);
     return {
         props: {
             fallback : {

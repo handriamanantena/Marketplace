@@ -1,4 +1,4 @@
-import {Item} from "@customTypes/Item";
+import type {Item} from "@customTypes/Item";
 import {db} from "@server/db";
 
 

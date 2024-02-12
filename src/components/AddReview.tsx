@@ -8,35 +8,33 @@ import {EditableFiveStars} from "@components/rating/EditableFiveStars";
 
 export const AddReview = ({showPopup, setShowPop, itemId} : {showPopup: boolean, setShowPop: Dispatch<SetStateAction<boolean>>, itemId: number}) => {
 
-    let [rating, setRating] = useState<0|1|2|3|4|5>(0);
+    const [rating, setRating] = useState<0|1|2|3|4|5>(0);
     const router = useRouter();
 
-    let hidePopUp = () => {
+    const hidePopUp = () => {
         setShowPop(false);
     };
 
-    let onSubmit = async (e: React.SyntheticEvent): Promise<void> => {
+    const onSubmit = async (e: React.SyntheticEvent): Promise<void> => {
         e.preventDefault();
         const target = e.target as typeof e.target & {
             comment: { value: string };
             email: { value: string };
         };
-        let body = JSON.stringify({
+        const body = JSON.stringify({
             comment: target.comment.value,
             email: target.email.value,
             rating: rating,
         });
-        let response = await fetch(`http://localhost:3000/api/item/${itemId}/review`, {
+        await fetch(`http://localhost:3000/api/item/${itemId}/review`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body : body
         });
-        // TODO add loading
-        console.log("the response is" + response);
         setShowPop(false);
-        await router.reload();
+        router.reload();
     };
 
 

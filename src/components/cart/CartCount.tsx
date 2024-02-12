@@ -1,7 +1,7 @@
 import {CartSVG} from "@components/cart/CartSVG";
 import {useAppDispatch} from "@lib/store/store";
 import { showCart } from "@lib/store/navSlice";
-import {ItemCart} from "@lib/store/cartSlice";
+import type {ItemCart} from "@lib/store/cartSlice";
 
 export default function CartCount({cartItem} : {cartItem: ItemCart}) {
 

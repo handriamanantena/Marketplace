@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {Item} from "@customTypes/Item";
+import type {Item} from "@customTypes/Item";
 
 
 export type ItemCart = Item & {quantity: number}
@@ -19,7 +19,7 @@ export const CartSlice = createSlice({
     initialState,
     reducers: {
         addItem: (state, action) => {
-            let existingItem : ItemCart | undefined = state.items.find(item => item.id == action.payload.id);
+            const existingItem : ItemCart | undefined = state.items.find((item : ItemCart) => item.id == action.payload.id);
             if(existingItem) {
                 existingItem.quantity += action.payload.quantity;
             }
@@ -28,9 +28,9 @@ export const CartSlice = createSlice({
             }
         },
         removeItem: (state, action) => {
-            let existingItem : ItemCart | undefined = state.items.find(item => item.id == action.payload.id);
+            const existingItem : ItemCart | undefined = state.items.find(item => item.id == action.payload.id);
             if(existingItem) {
-                let quantity = existingItem.quantity - action.payload.quantity;
+                const quantity = existingItem.quantity - action.payload.quantity;
                 if(quantity <= 0) {
                     state.items = state.items.filter(item => item.id != action.payload.id);
                 }

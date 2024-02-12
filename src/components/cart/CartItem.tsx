@@ -1,4 +1,5 @@
-import {addItem, removeItem, ItemCart} from "@lib/store/cartSlice";
+import {addItem, removeItem } from "@lib/store/cartSlice";
+import type {ItemCart } from "@lib/store/cartSlice";
 import Image from "next/image";
 import {useAppDispatch} from "@lib/store/store";
 import React from "react";

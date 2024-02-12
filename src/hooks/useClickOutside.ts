@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import React from "react";
+import type React from "react";
 import {hideCart} from "@lib/store/navSlice";
 import {useAppDispatch} from "@lib/store/store";
 

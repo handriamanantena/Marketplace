@@ -1,10 +1,11 @@
-import {NextApiRequest, NextApiResponse} from "next";
+import type {NextApiRequest, NextApiResponse} from "next";
 
 export interface methods {
-    GET?: (req: NextApiRequest, res: NextApiResponse) => {},
+    GET?: (req: NextApiRequest, res: NextApiResponse) => {} ,
     POST?: (req: NextApiRequest, res: NextApiResponse) => {},
     PUT?: (req: NextApiRequest, res: NextApiResponse) => {}
 }
+
 
 
 export default async function httpHandler(req: NextApiRequest, res: NextApiResponse, handlers: methods) {
@@ -37,7 +38,7 @@ export default async function httpHandler(req: NextApiRequest, res: NextApiRespo
 function throwMethodNotAllowed(res: NextApiResponse, method : string) {
     res.status(405).json({
         error: {
-            message: "method not allowed",
+            message: "method not allowed: " + method,
         },
     });
 }
