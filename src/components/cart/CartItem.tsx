@@ -1,4 +1,4 @@
-import {addItem, ItemCart} from "@lib/store/cartSlice";
+import {addItem, removeItem, ItemCart} from "@lib/store/cartSlice";
 import Image from "next/image";
 import {useAppDispatch} from "@lib/store/store";
 import React from "react";
@@ -8,7 +8,7 @@ export default function CartItem({cartItem} : {cartItem: ItemCart}) {
 
     const dispatch = useAppDispatch();
 
-    const addCart = () => {
+    const increaseItemQuantity = () => {
         dispatch(addItem({ id: cartItem.id,
             url: cartItem.url,
             name: cartItem.name,
@@ -17,17 +17,20 @@ export default function CartItem({cartItem} : {cartItem: ItemCart}) {
             totalRatings: cartItem.totalRatings,
             quantity: 1
         }));
-    };
-
-    const increaseItemQuantity = () => {
-
     }
 
     const decreaseItemQuantity = () => {
-
+        dispatch(removeItem({ id: cartItem.id,
+            url: cartItem.url,
+            name: cartItem.name,
+            price: cartItem.price,
+            avgRating: cartItem.avgRating,
+            totalRatings: cartItem.totalRatings,
+            quantity: 1
+        }));
     }
 
-    return <div className="flex justify-center items-center w-30 h-20 m-1 space-x-5"  onClick={addCart}>
+    return <div className="flex justify-center items-center w-30 h-20 m-1 space-x-5">
         <Image className="md:rounded-lg w-10 h-10 mx-1 my-1" key={cartItem.id}
                alt={cartItem.name}
                width={1000}
@@ -35,13 +38,9 @@ export default function CartItem({cartItem} : {cartItem: ItemCart}) {
                src="https://thumbnail.r2pictures.uk/monkey"/>
         <p>{ cartItem.name }</p>
 
-        <QuantityButton changeCallBack={increaseItemQuantity}>
-            -
-        </QuantityButton>
+        <QuantityButton changeCallBack={decreaseItemQuantity} text="-"/>
             <p>{ cartItem.quantity }</p>
-        <QuantityButton changeCallBack={increaseItemQuantity}>
-            +
-        </QuantityButton>
+        <QuantityButton changeCallBack={increaseItemQuantity} text="+"/>
     </div>
 
 }

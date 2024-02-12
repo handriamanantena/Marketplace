@@ -26,10 +26,22 @@ export const CartSlice = createSlice({
             else {
                 state.items.push(action.payload)
             }
+        },
+        removeItem: (state, action) => {
+            let existingItem : ItemCart | undefined = state.items.find(item => item.id == action.payload.id);
+            if(existingItem) {
+                let quantity = existingItem.quantity - action.payload.quantity;
+                if(quantity <= 0) {
+                    state.items = state.items.filter(item => item.id != action.payload.id);
+                }
+                else {
+                    existingItem.quantity = quantity;
+                }
+            }
         }
     }
 });
 
 export default CartSlice.reducer;
-export const { addItem } = CartSlice.actions;
+export const { addItem, removeItem } = CartSlice.actions;
 

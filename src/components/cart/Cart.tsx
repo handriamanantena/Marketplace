@@ -1,5 +1,5 @@
 import {Item} from "@customTypes/Item";
-import {Dispatch, SetStateAction, useRef} from "react";
+import {Dispatch, SetStateAction, useEffect, useRef} from "react";
 import useClickOutside from "@hooks/useClickOutside";
 import { useAppSelector} from "@lib/store/store";
 import { ItemCart } from "@lib/store/cartSlice";
