@@ -7,12 +7,11 @@ import {Card} from "@components/Card";
 import {StoreProvider} from "@lib/provider/StoreProvider";
 import {Item} from "@customTypes/Item";
 import {getItems} from "@server/prisma/item";
+import {useEffect} from "react";
 
 const fetcher = (url: string) => fetch(url).then((res) =>  res.json() );
 
 const getKey = (pageIndex: number, previousPageData : Item[]) : string | undefined => {
-
-
     if (previousPageData && previousPageData.length == 0) {
         return null;
     }
@@ -26,8 +25,11 @@ const getKey = (pageIndex: number, previousPageData : Item[]) : string | undefin
 };
 
 function Page() {
-    const {data, size, setSize} = useSWRInfinite(getKey, fetcher);
+
+    const {data , size, setSize} : {data: [], size : number, setSize : any} = useSWRInfinite(getKey, fetcher);
+
     if (!data) return 'loading';
+
     return (
         <div className="flex flex-col">
             <div className="flex flex-wrap justify-center w-full">
@@ -35,7 +37,8 @@ function Page() {
                     return items.map((item: Item) => <Card item={item}/>)
                 })}
             </div>
-            <button className="grow h-20 bg-slate-200" onClick={() => setSize(size + 1)}>Load More ▼</button>
+            {data && data[data.length - 1] && data[data.length - 1].length != 0 ?
+                <button className="grow h-20 bg-slate-200" onClick={() => setSize(size + 1)}>Load More ▼</button> : <></>}
         </div>
     )
 }
