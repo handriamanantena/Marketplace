@@ -6,10 +6,10 @@ import { ItemCart } from "@lib/store/cartSlice";
 import React from "react";
 import CartItem from "@components/cart/CartItem";
 
-export default function CartMenu({setShowCart} : {setShowCart: Dispatch<SetStateAction<boolean>>}) {
+export default function CartMenu() {
 
     let ref: React.RefObject<HTMLDivElement> = useRef(null);
-    useClickOutside(setShowCart, ref);
+    useClickOutside(ref);
     let items : ItemCart[] | undefined = useAppSelector(state => state.cart.items);
 
 

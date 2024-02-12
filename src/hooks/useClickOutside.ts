@@ -1,14 +1,16 @@
-import {Dispatch, RefObject, SetStateAction, useEffect} from "react";
+import { useEffect } from "react";
 import React from "react";
+import {hideCart} from "@lib/store/navSlice";
+import {useAppDispatch} from "@lib/store/store";
 
-const useClickOutside = (setShowClickable: Dispatch<SetStateAction<boolean>>, ref : React.RefObject<HTMLElement>) => {
+const useClickOutside = (ref : React.RefObject<HTMLElement>) => {
 
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         function handleAnyDropDownClick(event : any) {
-            console.log("inside");
             if (ref.current && !ref.current.contains(event.target)) {
-                setShowClickable(false);
+                dispatch(hideCart());
             }
         }
         document.addEventListener("click", handleAnyDropDownClick, {capture: true});

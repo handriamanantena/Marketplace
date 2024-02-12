@@ -1,12 +1,17 @@
 import CartMenu from "@components/cart/Cart";
-import {useState} from "react";
 import {CartSVG} from "@components/cart/CartSVG";
+import {useAppDispatch, useAppSelector} from "@lib/store/store";
+import {showCart} from "@lib/store/navSlice";
 
 export default function NavBar({}) {
 
-    let [showCart, setShowCart] = useState<boolean>(false);
 
+    const showCartState : boolean = useAppSelector(state => state.nav.showCart);
+    const dispatch = useAppDispatch();
 
+    const dispatchShowCart = () => {
+        dispatch(showCart());
+    }
 
 
     return <nav className="bg-gray-800 p-4">
@@ -21,11 +26,11 @@ export default function NavBar({}) {
                 </ul>
             </div>
             <div className="flex-row-reverse" >
-                <button className="text-white" onClick={() => setShowCart(true)}>
+                <button className="text-white" onClick={() => dispatchShowCart()}>
                     <CartSVG/>
                     Cart
                 </button>
-                {showCart ? <CartMenu setShowCart={setShowCart}/> : <></>}
+                { showCartState ? <CartMenu/> : <></>}
             </div>
         </div>
     </nav>
