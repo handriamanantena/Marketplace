@@ -10,7 +10,7 @@ import {getItems} from "@server/prisma/item";
 
 const fetcher = (url: string) => fetch(url).then((res) =>  res.json() );
 
-const getKey = (pageIndex: number, previousPageData : Item[]) => {
+const getKey = (pageIndex: number, previousPageData : Item[]) : string | undefined => {
 
 
     if (previousPageData && previousPageData.length == 0) {
@@ -23,17 +23,19 @@ const getKey = (pageIndex: number, previousPageData : Item[]) => {
         return null;
     }
     return `/api/item?pageIndex=${previousPageData[previousPageData!.length - 1]!.id}&pageSize=30`
-}
+};
 
 function Page() {
     const {data, size, setSize} = useSWRInfinite(getKey, fetcher);
     if (!data) return 'loading';
     return (
-        <div className="flex flex-wrap justify-center w-full" >
-            {data.map((items, index) => {
-                return items.map((item : Item)=> <Card item={item}/>)
-            })}
-            <button onClick={() => setSize(size + 1)}>Load More</button>
+        <div className="flex flex-col">
+            <div className="flex flex-wrap justify-center w-full">
+                {data.map((items, index) => {
+                    return items.map((item: Item) => <Card item={item}/>)
+                })}
+            </div>
+            <button className="grow h-20 bg-slate-200" onClick={() => setSize(size + 1)}>Load More ▼</button>
         </div>
     )
 }

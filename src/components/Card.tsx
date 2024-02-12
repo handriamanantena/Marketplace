@@ -17,9 +17,8 @@ export const Card =  ({item} : {item: Item}) => {
         let itemCart : ItemCart = { ...item, ...{quantity: 1} };
         dispatch(addItem(itemCart));
     };
-    return <div>
+    return <div className="bg-slate-100 border-2 pb-5 m-5">
         <AddReview showPopup={showPopup} setShowPop={ setShowPop } itemId={item.id}/>
-        <div>
             <CartCount cartItem={itemInCart}/>
             <Image className="md:rounded-lg w-80 h-80 mx-5 my-5" key={item.id}
                    alt={item.name}
@@ -27,14 +26,12 @@ export const Card =  ({item} : {item: Item}) => {
                    height={1000}
                    src="https://thumbnail.r2pictures.uk/monkey">
             </Image>
-        </div>
 
-        <div className="flex flex-col">
+        <div className="flex justify-center items-center space-y-1 flex-col">
             <p>{item.name}</p>
-            <p>{item.price}</p>
-            <p>{item.avgRating}</p>
+            <p>{item.price.toFixed(2)}$</p>
             <Rating rating={item.avgRating} totalRatings={item.totalRatings}></Rating>
-            <button onClick={() => setShowPop}>Add Review</button>
+            <button onClick={() => setShowPop(true)}>Add Review</button>
             <button onClick={addToCart}>Add to Cart</button>
         </div>
     </div>
