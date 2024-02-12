@@ -1,25 +1,24 @@
-import {createSlice} from "@reduxjs/toolkit";
-
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface NavBarState {
-    showCart: boolean;
+  showCart: boolean;
 }
 
 const initialState: NavBarState = {
-    showCart: false
+  showCart: false,
 };
 
 export const NavSlice = createSlice({
-    name: "nav",
-    initialState,
-    reducers: {
-        showCart: (state) => {
-            state.showCart = true;
-        },
-        hideCart: (state) => {
-            state.showCart = false;
-        }
-    }
+  name: "nav",
+  initialState,
+  reducers: {
+    showCart: (state) => {
+      state.showCart = true;
+    },
+    hideCart: (state) => {
+      state.showCart = false;
+    },
+  },
 });
 
 export default NavSlice.reducer;
