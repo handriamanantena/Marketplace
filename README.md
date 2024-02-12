@@ -29,9 +29,10 @@ If the database is already setup run this command instead
 In order to make use of next.js ssr features, you will need to create a production build. This will make use of `getStaticProps` and 
 generate 30 items in the marketplace at build time. If you have not run `npm run dev`, you will need to first build the database.
 
+* Install dependencies: `npm install`
 * Database setup: `npm run db:push`
 * Database seeding: `npx prisma db seed`
-* Build Next.js application: `npm run build`
+* Build Next.js application. The build will be located on ./next: `npm run build`
 
 After the build, to start the server run 
 
