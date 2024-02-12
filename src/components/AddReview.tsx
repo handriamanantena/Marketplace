@@ -46,12 +46,15 @@ export const AddReview = ({showPopup, setShowPop, itemId} : {showPopup: boolean,
                 <div className="fixed flex inset-0 backdrop-blur-sm items-center justify-center z-[1999]">
                     <div className="relative flex flex-col h-full w-full shadow-slate-600 shadow-md md:h-auto md:max-w-md lg:max-w-lg bg-white">
                         <button onClick={hidePopUp}>Hide</button>
-                        <form className="relative flex flex-col space-y-1 h-full w-full md:max-w-md lg:max-w-lg mt-1 p-10" onSubmit={onSubmit}>
+                        <form className="relative flex flex-col space-y-5 h-full w-full md:max-w-md lg:max-w-lg mt-1 p-10" onSubmit={onSubmit}>
                             <h1>Add Review</h1>
                             <EditableFiveStars setRating={setRating}/>
-                            <input type="email" id="email" name="email" required className="flex-1 bg-transparent focus:outline-none"/>
+                            <label htmlFor="email">Email</label>
                             <div className="flex flex-grow space-y-1 w-full p-0.5 bg-white border shadow-sm border-slate-300 focus:outline-none focus-within:border-sky-500 focus-within:ring-sky-500 focus-within:ring-1 rounded-md sm:text-sm">
-                                <label htmlFor="comment">Comment</label>
+                                <input type="email" id="email" name="email" required className="flex-1 bg-transparent focus:outline-none"/>
+                            </div>
+                            <label htmlFor="comment">Comment</label>
+                            <div className="flex flex-grow space-y-1 w-full p-0.5 bg-white border shadow-sm border-slate-300 focus:outline-none focus-within:border-sky-500 focus-within:ring-sky-500 focus-within:ring-1 rounded-md sm:text-sm">
                                 <textarea id="comment" name="comment" className="md:min-h-[174px] p-2.5 w-full bg-transparent focus:outline-none" maxLength={5000}/>
                             </div>
                             <button type="submit">Add Review</button>
