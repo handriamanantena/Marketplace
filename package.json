@@ -12,7 +12,7 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "format": "prettier --write \"src/**/*.ts\""
+    "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "prisma": {
     "seed": "node prisma/seed/seed.js"

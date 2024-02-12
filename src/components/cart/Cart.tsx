@@ -4,10 +4,16 @@ import { useAppSelector } from "@lib/store/store";
 import type { ItemCart } from "@lib/store/cartSlice";
 import React from "react";
 import CartItem from "@components/cart/CartItem";
+import { hideCart } from "@lib/store/navSlice";
+import { useAppDispatch } from "@lib/store/store";
 
 export default function CartMenu() {
   const ref: React.RefObject<HTMLDivElement> = useRef(null);
-  useClickOutside(ref);
+  const dispatch = useAppDispatch();
+  const dispatchHide = () => {
+    dispatch(hideCart());
+  };
+  useClickOutside(ref, dispatchHide);
   const items: ItemCart[] | undefined = useAppSelector(
     (state) => state.cart.items,
   );
