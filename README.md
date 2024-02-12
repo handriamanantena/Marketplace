@@ -6,13 +6,17 @@ Simulates a marketplace frontend. The checkout mechanism is handled using redux.
 
 ## Start project locally  
 
-`npm run dev`
-
+`npm run setup`
 The following will occur 
 
 * prisma generates the schema, defined in `./prisma/schema.prisma`
 * The database is seeded. The seeding script is located in `./prisma/seed/seed.js`. It will generate 100 items
 * a next.js application will start in dev mode ``localhost:3000``
+
+If the database is already setup run this command instead
+`npm run dev`
+
+
 
 ## Enviornment Variables
 
@@ -35,5 +39,10 @@ After the build, to start the server run
 
 ## Stack
 
-* frontend `Next.js, react, react redux, tailwind`
+* frontend `Next.js, react, react redux, tailwind, shadcn`
 * backend: `Prisma: sqlLite`
+
+## Thumbnails
+
+Thumbnails where generated using another [project](https://github.com/handriamanantena/thumbnail). Thumbnails 
+already deployed on Cloudflare r2 in this demo.

@@ -44,7 +44,7 @@ export default function CartItem({ cartItem }: { cartItem: ItemCart }) {
         alt={cartItem.name}
         width={1000}
         height={1000}
-        src="https://thumbnail.r2pictures.uk/monkey"
+        src={cartItem.url}
       />
       <p>{cartItem.name}</p>
 

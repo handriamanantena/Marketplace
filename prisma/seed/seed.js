@@ -9,7 +9,7 @@ async function main() {
     else {
         for(let i = 0; i < 100; i++) {
             await prisma.item.create({
-                data: { name: `random item ${i}`, avgRating: 0, totalRatings: 0, url: `url${i}`, price: 12 },
+                data: { name: `random item ${i}`, avgRating: 0, totalRatings: 0, url: `https://marketplace.r2pictures.uk/${i}`, price: 12 },
             });
         }
         console.log("seeding complete");

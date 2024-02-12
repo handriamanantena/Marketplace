@@ -20,7 +20,7 @@ const config = {
     },
     images: {
         unoptimized: true,
-        domains: ['https://thumbnail.r2.dailyirasuto.com', 'localhost']
+        domains: ['https://marketplace.r2pictures.uk', 'localhost']
     },
     i18n: {
         locales: ["en"],

@@ -30,7 +30,7 @@ export const Card = ({ item }: { item: Item }) => {
         alt={item.name}
         width={1000}
         height={1000}
-        src="https://thumbnail.r2pictures.uk/monkey"
+        src={item.url}
       ></Image>
 
       <div className="flex justify-center items-center space-y-1 flex-col">
