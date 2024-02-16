@@ -16,7 +16,7 @@ const useClickOutside = (ref: React.RefObject<HTMLElement>, callback) => {
         capture: true,
       });
     };
-  }, []);
+  }, [ref, callback]);
 };
 
 export default useClickOutside;

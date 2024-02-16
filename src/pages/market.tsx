@@ -38,7 +38,7 @@ function Page() {
           return items.map((item: Item) => <Card item={item} key={item.id} />);
         })}
       </div>
-      {data[data?.length - 1]?.length != 0 ? (
+      {data[data.length - 1].length != 0 && (
         <button
           type="button"
           className="grow h-20 bg-slate-200"
@@ -46,8 +46,6 @@ function Page() {
         >
           Load More ▼
         </button>
-      ) : (
-        <></>
       )}
     </div>
   );

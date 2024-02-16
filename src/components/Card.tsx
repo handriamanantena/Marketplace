@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Rating } from "@components/rating/Rating";
 import { useState } from "react";
-import type { Item } from "@customTypes/Item";
+import type { Item } from "prisma/prisma-client";
 import { addItem } from "@lib/store/cartSlice";
 import type { ItemCart } from "@lib/store/cartSlice";
 import { useAppDispatch, useAppSelector } from "@lib/store/store";

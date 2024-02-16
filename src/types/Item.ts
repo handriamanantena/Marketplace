@@ -1,3 +1,4 @@
+import { Item, Review } from "prisma/prisma-client";
 export type Item = {
   id: number;
   url: string;

@@ -6,7 +6,7 @@ export async function getItems(
   rating: number | undefined,
   pageSize: number | undefined,
   pageIndex: number | undefined,
-): Promise<Item[] | undefined> {
+): Promise<Item[]> {
   let where = {};
   if (name && rating) {
     where = {
@@ -58,6 +58,5 @@ export async function getItems(
     };
   }
 
-  const items: Item[] | undefined = (await db.item.findMany(query)) as Item[];
-  return items;
+  return await db.item.findMany(query);
 }
