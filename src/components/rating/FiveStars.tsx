@@ -3,11 +3,9 @@ import { Star } from "@components/rating/Star";
 export const FiveStars = ({ rating }: { rating: number }) => {
   return (
     <div className="flex">
-      <Star isStyled={rating >= 1} />
-      <Star isStyled={rating >= 2} />
-      <Star isStyled={rating >= 3} />
-      <Star isStyled={rating >= 4} />
-      <Star isStyled={rating >= 5} />
+      {[1, 2, 3, 4, 5].map((num: number) => (
+        <Star isStyled={rating >= num} />
+      ))}
     </div>
   );
 };
